@@ -7,14 +7,14 @@ class Account {
 
   get balance() {
     let balance = 0;
-    for (let transaction of this.transactions){
+    for (let transaction of this.transactions) {
       balance += transaction.value;
     }
     return balance;
 
   }
 
-  addTransaction(transaction){
+  addTransaction(transaction) {
     this.transactions.push(transaction);
   }
 }
@@ -22,13 +22,13 @@ class Account {
 class Transaction {
 
   constructor(amount, account) {
-    this.amount  = amount;
+    this.amount = amount;
     this.account = account;
   }
 
   commit() {
-    
-    if (this.isAllowed()){
+
+    if (this.isAllowed()) {
       this.time = new Date();
       this.account.addTransaction(this);
       return true;
@@ -46,8 +46,8 @@ class Deposit extends Transaction {
     return this.amount;
   }
 
-  isAllowed(){
-    if (this.amount < 0){
+  isAllowed() {
+    if (this.amount < 0) {
       return false;
     }
     return true;
@@ -55,22 +55,20 @@ class Deposit extends Transaction {
 
 }
 
-class Withdrawal extends Transaction{
+class Withdrawal extends Transaction {
 
   get value() {
     return -this.amount;
   }
 
-  isAllowed(){
-    if (this.account.balance < this.amount){
+  isAllowed() {
+    if (this.account.balance < this.amount) {
       return false;
     }
     return true;
   }
 
 }
-
-
 
 
 // DRIVER CODE BELOW
